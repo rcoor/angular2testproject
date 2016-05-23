@@ -1,0 +1,39 @@
+<h3>Posts</h3>
+<a (click)="back()">back</a>
+<div class="row">
+  <div class="col-md-6">
+  <select #u (change)="changeUser({userId: u.value})">
+      <option *ngFor="let user of users" value="{{ user.id }}">{{user.name}}</option>
+  </select>
+    <ul class="list-group posts">
+      <spinner [visible]="postsLoading"></spinner>
+      <i class="material-icons" *ngIf="isLoading">cloud_download</i>
+      <li class="list-group-item" *ngFor="let post of posts; let i = index" (click)="viewPost(post)">
+        {{post.title}}
+      </li>
+    </ul>
+
+  </div>
+  <div class="col-md-6">
+    <ul class="list-group" *ngIf="curPost">
+      <li class="list-group-item" style="background: #dbe2dc;">
+        {{ curPost.title }}
+      </li>
+      <li class="list-group-item">
+        {{ curPost.body }}
+      </li>
+      <spinner [visible]="commentsLoading"></spinner>
+      <li class="list-group-item" *ngIf="comments">
+        <div class="media" *ngFor="let comment of comments">
+          <div class="media-left">
+            <a href=""><img src="http://lorempixel.com/80/80/people?random=1" alt="" style="border-radius: 100%;" class="media-object thumbnail"></a>
+          </div>
+          <div class="media-body">
+            <h5 class="media-heading">{{ comment.name }}</h5>
+            {{comment.body}}
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
